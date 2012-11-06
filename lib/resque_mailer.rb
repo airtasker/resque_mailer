@@ -39,6 +39,10 @@ module Resque
 
       def perform(action, *args)
         begin
+          # FIXME: our mailers don't work properly so this hack is needed?
+          # wtf...
+          sleep 10
+          # wtf
           self.send(:new, action, *args).message.deliver
         rescue Exception => ex
           if logger
